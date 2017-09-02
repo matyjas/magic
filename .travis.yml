@@ -1,3 +1,10 @@
 language: elixir
 elixir:
 - 1.5.1
+deploy:
+  provider: heroku
+  app: tranquil-stream-16097
+  on:
+    repo: matyjas/magic
+  api_key:
+    secure: UJ3CTaTHKgOnbV+LAf0yrb7L0Mc1gXVDmmqDptqIInz5UwDgKc50PBEQl7WlOAAh5PeKEKSwnH0gjNqnm4NcLGxU75PhuN1eOqV9hytfQB86jTXpCyk0i1j6w/gUIJ6vnR5Kcp2KpQBPH7Na0DGqPDIhqs5Xm2R4GexrHPSyb8ERQ7ECw9h7dg6haRROI3x036Bl+MMDOAmh0ByAGkzBB+CTbFlFV8J9vS56Vh7lLwZ+tyRJO70kTVOM4/xddbqeozuxbmHhiaWE7yTL7W+X7uATgvpIw8jI8mGekgRoUgTPOm78q1bVh5O5CvTRxPfVZEVxVl42/cGQrvOssx4QzmH+aurKnxD+A/uaWel87WMWkteNpdE+8+AY9bDHoMG2rwlrJWZbXJ5cYuoUhIKhFkC/LM369U6KZJV+qCUvE+Mv93kZPEfN1NLi5yWQzWhlQfkAol8UzVG2tnIsO2CVkGe8/z3WocjwJ9GcHCZv3Gt+P1GawGAbI77XYqt5Nbww8gi5Yh/Aw9MzfXHG8Mtc4bVOrRwlQdJRsnHTTmyYIV77O4jqpErqnNhhRrKTyzzrpnhzxs9zSC2zkikDU/3iqXRdnqAaeXqM6JHP7k6gJMXXCuIq4BxzNDQw6CItMJps+7hiVuyBXASorQ6zCpWAla55h28VxqE8KqLtOmsoNGM=
