@@ -1,6 +1,10 @@
 defmodule FB.Token do
 
-  def verify?("subscribe", token, challenge) do
+  @sys_env_fb_token Application.get_env(:magic, :fb, :token)[:token]
+
+  def local_value, do: @sys_env_fb_token
+  
+  def verify?("subscribe", @sys_env_fb_token, challenge) do
     {:match, challenge}
   end
 
