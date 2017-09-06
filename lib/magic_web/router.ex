@@ -19,8 +19,9 @@ defmodule MagicWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", MagicWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", MagicWeb do
+    pipe_through :api
+
+    get "/fb/v0", FBController, :challenge 
+  end
 end
