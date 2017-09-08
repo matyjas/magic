@@ -21,7 +21,7 @@ defmodule MagicWeb.FBController do
   end
 
   defp check(conn, {:match, challenge}) do
-    text(conn, challenge)
+    text conn, challenge
   end
 
 end
