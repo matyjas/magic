@@ -9,13 +9,13 @@ defmodule FB.TokenVerifyTest do
   end
   
   test "invalid token" do
-    assert Token.verify?("subscribe", "tokenized", "not gonna happen") ==
+    assert Token.verify?("tokenized", "not gonna happen") ==
     {:miss}
   end
 
   test "check fb values match" do
     challenged = "c-rock"
-    assert Token.verify?("subscribe", Token.local_value, challenged) ==
+    assert Token.verify?(Token.local_value, challenged) ==
     {:match, challenged}
   end
   

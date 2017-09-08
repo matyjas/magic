@@ -5,7 +5,7 @@ defmodule MagicWeb.FBController do
 			"hub.verify_token" => token,
 		       "hub.challenge" => challenge}) do
     
-    check(conn, FB.Token.verify?("subscribe", token, challenge))
+    check(conn, FB.Token.verify?(token, challenge))
   end
 
   def subscribe(conn, _params) do
