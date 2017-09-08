@@ -22,6 +22,6 @@ defmodule MagicWeb.Router do
   scope "/api", MagicWeb do
     pipe_through :api
 
-    get "/fb/v0", FBController, :challenge 
+    get "/fb/v0", FBController, :subscribe 
   end
 end
