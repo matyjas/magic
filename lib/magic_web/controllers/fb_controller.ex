@@ -1,5 +1,12 @@
 defmodule MagicWeb.FBController do
   use MagicWeb, :controller
+
+  def messages(conn, params) do
+
+    IO.inspect params
+
+    text conn, "thanks"
+  end
   
   def subscribe(conn, %{"hub.mode" => "subscribe",
 			"hub.verify_token" => token,
