@@ -1,12 +1,13 @@
 defmodule MagicWeb.FBController do
   use MagicWeb, :controller
 
-  alias FB.{EventBundle, Token}
+  alias FB.{EventBundle, Event, Token}
   
   def messages(conn, params) do
 
     params
     |> EventBundle.split
+    |> Enum.filter(&(Event.is_sender_message?(&1)))
     |> IO.inspect
 
     text conn, "thanks"
