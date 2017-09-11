@@ -1,9 +1,13 @@
 defmodule MagicWeb.FBController do
   use MagicWeb, :controller
 
+  alias FB.{EventBundle, Token}
+  
   def messages(conn, params) do
 
-    IO.inspect params
+    params
+    |> EventBundle.split
+    |> IO.inspect
 
     text conn, "thanks"
   end
@@ -12,7 +16,7 @@ defmodule MagicWeb.FBController do
 			"hub.verify_token" => token,
 		       "hub.challenge" => challenge}) do
     
-    check(conn, FB.Token.verify?(token, challenge))
+    check(conn, Token.verify?(token, challenge))
   end
 
   def subscribe(conn, _params) do
