@@ -1,10 +1,10 @@
 defmodule FB.Token do
 
-  @sys_env_fb_token Application.get_env(:magic, :fb, :token)[:handshake]
+  @fb_handshake_token Application.get_env(:magic, :fb, :token)[:handshake]
 
-  def local_value, do: @sys_env_fb_token
+  def handshake, do: @fb_handshake_token
   
-  def verify?(@sys_env_fb_token, challenge) do
+  def verify?(@fb_handshake_token, challenge) do
     {:match, challenge}
   end
 

@@ -16,7 +16,7 @@ defmodule MagicWeb.FBControllerTest do
   test "happy path" do
     challenge = "winner!"
     conn = get build_conn(), "/api/fb/v0", ["hub.mode": "subscribe",
-					    "hub.verify_token": FB.Token.local_value,
+					    "hub.verify_token": FB.Token.handshake,
 					   "hub.challenge": challenge]
     assert text_response(conn, 200) =~ challenge
   end

@@ -4,8 +4,8 @@ defmodule FB.TokenVerifyTest do
   alias FB.{Token}
   
   test "local token value exists" do
-    assert Token.local_value != nil
-    assert is_binary Token.local_value
+    assert Token.handshake != nil
+    assert is_binary Token.handshake
   end
   
   test "invalid token" do
@@ -15,7 +15,7 @@ defmodule FB.TokenVerifyTest do
 
   test "check fb values match" do
     challenged = "c-rock"
-    assert Token.verify?(Token.local_value, challenged) ==
+    assert Token.verify?(Token.handshake, challenged) ==
     {:match, challenged}
   end
   
