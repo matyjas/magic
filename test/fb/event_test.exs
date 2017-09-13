@@ -30,4 +30,14 @@ defmodule FB.EventTest do
 		       "timestamp" => 1505078719867}
     assert Event.is_sender_message? sender_message
   end
+
+  test "pull recipient id" do
+    recipient = "116090092394138"
+    message = %{"message" => %{"mid" => "mid.$cAABplXIuOB9krpiNAFefVNOYxI4W",
+			       "nlp" => %{"entities" => %{}},
+			       "seq" => 7883, "text" => "what up?"},
+		"recipient" => %{"id" => recipient},
+		"sender" => %{"id" => "1646924535352518"}, "timestamp" => 1505341162752}
+    assert recipient == Event.recipient message
+  end
 end

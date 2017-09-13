@@ -1,5 +1,9 @@
 defmodule FB.Event do
 
+  def recipient(%{"recipient" => %{"id" => recipient}}) do
+    recipient
+  end
+  
   def is_sender_message?(%{"message" => message}) do
     !is_message_echo?(message)
   end

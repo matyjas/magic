@@ -1,16 +1,17 @@
 defmodule MagicWeb.FBController do
   use MagicWeb, :controller
 
-  alias FB.{EventBundle, Event, Token}
+  alias FB.{EventBundle, Event, Token, Gateway}
   
   def messages(conn, params) do
 
     params
     |> EventBundle.split
     |> Enum.filter(&(Event.is_sender_message?(&1)))
-    |> IO.inspect
+    |> Enum.map(&(Event.recipient(&1)))
+    |> Enum.each(&(Gateway.send(&1, "word")))
 
-    text conn, "thanks"
+    text conn, "ok"
   end
   
   def subscribe(conn, %{"hub.mode" => "subscribe",
