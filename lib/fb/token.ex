@@ -1,6 +1,6 @@
 defmodule FB.Token do
 
-  @sys_env_fb_token Application.get_env(:magic, :fb, :token)[:token]
+  @sys_env_fb_token Application.get_env(:magic, :fb, :token)[:handshake]
 
   def local_value, do: @sys_env_fb_token
   

@@ -20,8 +20,9 @@ config :logger, :console,
 
 # Pull Facebook token from environment
 config :magic, :fb,
-  token: Map.fetch!(System.get_env(), "FACEBOOK_TOKEN")
-# System.get_env("FACEBOOK_TOKEN")
+  handshake: Map.fetch!(System.get_env(), "FB_HANDSHAKE_TOKEN"),
+  page: Map.fetch!(System.get_env(), "FB_PAGE_TOKEN")
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
