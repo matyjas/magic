@@ -8,7 +8,7 @@ defmodule MagicWeb.FBController do
     params
     |> EventBundle.split
     |> Enum.filter(&(Event.is_sender_message?(&1)))
-    |> Enum.map(&(Event.recipient(&1)))
+    |> Enum.map(&(Event.sender(&1)))
     |> Enum.each(&(Gateway.send(&1, "word")))
 
     text conn, "ok"
