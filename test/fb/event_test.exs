@@ -3,6 +3,17 @@ defmodule FB.EventTest do
 
   alias FB.Event
 
+  test "pull sender id and timestamp" do
+    sender_id = "mail man"
+    timestamp = 1970
+    message = %{"message" => %{"mid" => "mid.$cAABplXIuOB9knvP9e1eba6yAbG44",
+			       "seq" => 7828, "text" => "@@@@@"},
+		"recipient" => %{"id" => "116090092394138"},
+		"sender" => %{"id" => sender_id},
+		"timestamp" => timestamp}
+    assert {sender_id, timestamp} == Event.extract_sender_timestamp(message)
+  end
+  
   test "echos are not sender messages" do
     echo = %{"message" => %{"is_echo" => true,
 			    "mid" => "mid.$cAABplXIuOB9knvaEZ1ebbE7MJrUu", "seq" => 7830,

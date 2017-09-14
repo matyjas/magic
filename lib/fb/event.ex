@@ -4,8 +4,9 @@ defmodule FB.Event do
     recipient
   end
 
-  def sender(%{"sender" => %{"id" => sender}}) do
-    sender
+  def extract_sender_timestamp(%{"sender" => %{"id" => sender},
+	      "timestamp" => timestamp}) do
+    {sender, timestamp}
   end
   
   def is_sender_message?(%{"message" => message}) do
