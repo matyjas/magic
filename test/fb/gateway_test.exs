@@ -4,7 +4,6 @@ defmodule FB.GatewayTest do
   alias FB.Gateway
   
   test "can send messages to fb" do
-    response = Gateway.send("sender-id", "message")
-    IO.inspect response
+    _response = Gateway.send("sender-id", "message")
   end
 end

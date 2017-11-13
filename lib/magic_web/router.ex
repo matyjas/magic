@@ -22,8 +22,11 @@ defmodule MagicWeb.Router do
   scope "/api", MagicWeb do
     pipe_through :api
 
+    # Facebook Messenger
     get "/fb/v0", FBController, :subscribe
-
     post "/fb/v0", FBController, :messages
+
+    # Telegram
+    post "/telegram/v0", TelegramController, :updates
   end
 end
