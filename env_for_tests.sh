@@ -4,3 +4,4 @@
 
 export FB_HANDSHAKE_TOKEN="#local_fb_token_for_testing#"
 export FB_PAGE_TOKEN="&local_fb_token_for_testing&"
+export TELEGRAM_TOKEN="%local_telegram_token_for_testing%"

@@ -23,6 +23,9 @@ config :magic, :fb,
   handshake: Map.fetch!(System.get_env(), "FB_HANDSHAKE_TOKEN"),
   page: Map.fetch!(System.get_env(), "FB_PAGE_TOKEN")
 
+# Pull Telegram token too
+config :magic, :telegram,
+  telegram: Map.fetch!(System.get_env(), "TELEGRAM_TOKEN")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
