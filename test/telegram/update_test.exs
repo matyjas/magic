@@ -41,8 +41,10 @@ defmodule Telegram.UpdateTest do
   "text" => "Test"}, "update_id" => 158840566}
   
   test "sad path" do
-    {unhandled_update_type} = Update.extract_sender_date("boo")
+    boo = "boo"
+    {unhandled_update_type, og_data} = Update.extract_sender_date(boo)
     assert :unhandled_update_type == unhandled_update_type
+    assert og_data == boo
   end
 
   test "initial message" do

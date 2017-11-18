@@ -6,8 +6,6 @@ defmodule Telegram.Update do
   end
 
   def extract_sender_date(update) do
-    IO.inspect "WARNING :: unhandled update type>>"
-    IO.inspect update
-    {:unhandled_update_type}
+    {:unhandled_update_type, update}
   end
 end
