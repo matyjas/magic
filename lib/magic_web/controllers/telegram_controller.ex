@@ -12,12 +12,13 @@ defmodule MagicWeb.TelegramController do
     text conn, "ok"
   end
 
-  defp send_message({sender_id, date}) do
-    Gateway.send_message(sender_id, date)
-  end
-
   defp send_message({:unhandled_update_type, update}) do
     IO.inspect "WARNING :: unhandled update type>>"
     IO.inspect update    
+  end
+  
+  defp send_message({sender_id, date}) do
+    text = Eight.Ball.ask("Q", date)
+    Gateway.send_message(sender_id, text)
   end
 end
