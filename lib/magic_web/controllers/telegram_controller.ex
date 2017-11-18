@@ -3,7 +3,7 @@ defmodule MagicWeb.TelegramController do
 
   def updates(conn, params) do
 
-    IO.inspect params
+#    IO.inspect params
 
     text conn, "ok"
   end
