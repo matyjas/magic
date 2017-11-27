@@ -19,6 +19,7 @@ defmodule MagicWeb.TelegramController do
   
   defp send_message({sender_id, date}) do
     text = Eight.Ball.ask("Q", date)
-    Gateway.send_message(sender_id, text)
+    {:ok, pid} = Gateway.start_link([])
+    Gateway.send_message(pid, sender_id, text)
   end
 end
