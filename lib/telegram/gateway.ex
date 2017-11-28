@@ -24,8 +24,11 @@ defmodule Telegram.Gateway do
   def handle_cast({:send_message, to_id, message}, _state) do
     url = "https://api.telegram.org/bot" <> Token.value <> "/sendMessage"
     body = Poison.encode!(%{"chat_id": to_id, "text": message})
-    HTTPotion.post url, [body: body, headers: ["Content-Type": "application/json"]]
-    # pattern match for errors
+    response = HTTPotion.post url, [body: body, headers: ["Content-Type": "application/json"]]
+    cond do
+      !HTTPotion.Response.success?(response) ->
+	inspect response
+    end
     {:stop, :normal, @stateless}
   end
 end
