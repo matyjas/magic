@@ -28,6 +28,8 @@ defmodule Telegram.Gateway do
     cond do
       !HTTPotion.Response.success?(response) ->
 	inspect response
+      _ ->
+	:ok
     end
     {:stop, :normal, @stateless}
   end
