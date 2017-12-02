@@ -3,10 +3,13 @@ defmodule Dialog.ConvoTest do
 
   alias Dialog.Convo
 
-  describe "when a new conversation starts" do
+  describe "when a conversation starts" do
 
-    test "can receive messages" do
+    test "can receive utterances" do
+      utterance = "/start"
       {:ok, pid} = Convo.start_link []
+      Convo.add_utterance pid, utterance
+      assert Convo.get_utterances(pid) == [utterance]
     end
   end
 end
