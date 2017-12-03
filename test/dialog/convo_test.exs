@@ -11,5 +11,9 @@ defmodule Dialog.ConvoTest do
       Convo.add_utterance pid, utterance
       assert Convo.get_utterances(pid) == [utterance]
     end
+
+    test "responds with onboarding" do
+
+    end
   end
 end

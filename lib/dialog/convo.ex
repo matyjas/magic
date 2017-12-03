@@ -1,7 +1,9 @@
 defmodule Dialog.Convo do
   use GenServer
 
-  # client
+  alias Telegram.{Update, Gateway}
+  
+  # public
 
   def start_link(opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -15,17 +17,38 @@ defmodule Dialog.Convo do
     GenServer.call(pid, :get_utterances)
   end
   
-  # server
+  # otp
   
   def init(:ok) do
     {:ok, []}
   end
 
   def handle_cast({:add_utterance, utterance}, state) do
+    respond utterance
     {:noreply, [ utterance | state ] }
   end
 
   def handle_call(:get_utterances, _from, state) do
     {:reply, state, state}
+  end
+
+  # private
+
+  defp respond(utterance) do
+
+    utterance
+    |> Update.extract_sender_date
+    |> send_message 
+  end
+
+  defp send_message({:unhandled_update_type, update}) do
+    IO.inspect "WARNING :: unhandled update type>>"
+    IO.inspect update    
+  end
+  
+  defp send_message({sender_id, date}) do
+    text = Eight.Ball.ask("Q", date)
+    {:ok, pid} = Gateway.start_link([])
+    Gateway.send_message(pid, sender_id, text)
   end
 end
