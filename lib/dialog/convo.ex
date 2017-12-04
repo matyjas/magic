@@ -35,7 +35,6 @@ defmodule Dialog.Convo do
   # private
 
   defp respond(utterance) do
-
     utterance
     |> Update.extract_sender_date
     |> send_message 
@@ -47,7 +46,7 @@ defmodule Dialog.Convo do
   end
   
   defp send_message({sender_id, date}) do
-    text = Eight.Ball.ask("Q", date)
+    text = Onboard.Greet.get(date)
     {:ok, pid} = Gateway.start_link([])
     Gateway.send_message(pid, sender_id, text)
   end
