@@ -18,4 +18,10 @@ defmodule Telegram.GatewayTest do
 				    "transient test in progress"}, {})
     assert response == {:stop, :normal, {}}
   end
+
+  test "send meditation" do
+
+    meditation = Meditations.Meditation.sample
+      
+  end
 end
