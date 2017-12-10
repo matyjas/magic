@@ -20,8 +20,10 @@ defmodule Telegram.GatewayTest do
   end
 
   test "send meditation" do
-
     meditation = Meditations.Meditation.sample
-      
+    response = Gateway.handle_cast({:send_meditation,
+				    @maciej_id,
+				    meditation}, {})
+    assert response == {:stop, :normal, {}}
   end
 end

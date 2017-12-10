@@ -1,8 +1,8 @@
 defmodule Telegram.Gateway do
   use GenServer
-  
-  alias Telegram.{Token}
 
+  alias Meditations.{Meditation}
+  
   @stateless {}
   
   ## client side
@@ -22,9 +22,28 @@ defmodule Telegram.Gateway do
   end
 
   def handle_cast({:send_message, to_id, message}, _state) do
-    url = "https://api.telegram.org/bot" <> Token.value <> "/sendMessage"
+
     body = Poison.encode!(%{"chat_id": to_id, "text": message})
-    response = HTTPotion.post url, [body: body, headers: ["Content-Type": "application/json"]]
+    request("/sendMessage", body)
+    {:stop, :normal, @stateless}
+  end
+
+  def handle_cast({:send_meditation, to_id, %Meditation{title: title,
+							audio_url: audio_url}}, _state) do
+    body = Poison.encode!(%{"chat_id": to_id,
+			    "audio": audio_url,
+			   "title": title})
+    request("/sendAudio", body)
+    {:stop, :normal, @stateless}
+  end
+
+  ## private
+
+  defp prepare_url(suffix), do: "https://api.telegram.org/bot" <> Telegram.Token.value <> suffix
+
+  defp request(suffix, body) do
+    response = HTTPotion.post prepare_url(suffix),
+      [body: body, headers: ["Content-Type": "application/json"]]
     cond do
       !HTTPotion.Response.success?(response) ->
 	inspect response
@@ -33,6 +52,5 @@ defmodule Telegram.Gateway do
       true ->
 	:ok
     end
-    {:stop, :normal, @stateless}
   end
 end
