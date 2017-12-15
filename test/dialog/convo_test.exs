@@ -9,6 +9,7 @@ defmodule Dialog.ConvoTest do
       utterance = "/start"
       {:ok, pid} = Convo.start_link []
       Convo.add_utterance pid, utterance
+      inspect Convo.get_utterances(pid)
       assert Convo.get_utterances(pid) == [utterance]
     end
 

@@ -23,6 +23,12 @@ defmodule Dialog.Convo do
     {:ok, []}
   end
 
+  # empty state means this is the beginning of our conversation
+  def handle_cast({:add_utterance, utterance}, []) do
+    respond utterance
+    {:noreply, [ utterance ] }
+  end
+  
   def handle_cast({:add_utterance, utterance}, state) do
     respond utterance
     {:noreply, [ utterance | state ] }
@@ -35,19 +41,24 @@ defmodule Dialog.Convo do
   # private
 
   defp respond(utterance) do
-    utterance
-    |> Update.extract_sender_date
-    |> send_message 
-  end
-
-  defp send_message({:unhandled_update_type, update}) do
-    IO.inspect "WARNING :: unhandled update type>>"
-    IO.inspect update    
+    case Update.extract_sender_date(utterance) do
+      {:unhandled_update_type, update} ->
+	IO.inspect "WARNING :: unhandled update from messaging platform>>"
+	IO.inspect update    	
+      {sender_id, date} ->
+	send_message sender_id, date 
+	send_meditation sender_id, Meditations.Meditation.sample
+    end
   end
   
-  defp send_message({sender_id, date}) do
+  defp send_message(sender_id, date) do
     text = Onboard.Greet.get(date)
     {:ok, pid} = Gateway.start_link([])
-    Gateway.send_message(pid, sender_id, text)
+    Gateway.send_message(pid, sender_id, text)    
+  end
+
+  defp send_meditation(sender_id, meditation) do
+    {:ok, pid} = Gateway.start_link([])
+    Gateway.send_meditation(pid, sender_id, meditation)
   end
 end
