@@ -18,6 +18,10 @@ defmodule Telegram.Gateway do
   def send_meditation(pid, to_id, meditation) do
     GenServer.cast(pid, {:send_meditation, to_id, meditation})
   end
+
+  def send_onboarding(pid, to_id, text, meditation) do
+    GenServer.cast(pid, {:send_onboarding, to_id, text, meditation})
+  end
   
   ## server side callbacks
 
@@ -26,24 +30,35 @@ defmodule Telegram.Gateway do
   end
 
   def handle_cast({:send_message, to_id, message}, _stateless) do
-
-    body = Poison.encode!(%{"chat_id": to_id, "text": message})
-    request("/sendMessage", body)
+    send_message to_id, message
     {:stop, :normal, @stateless}
   end
 
-  def handle_cast({:send_meditation, to_id, %Meditation{title: title,
-							audio_url: audio_url}}, _stateless) do
-    body = Poison.encode!(%{"chat_id": to_id,
-			    "audio": audio_url,
-			   "title": title})
-    response = request("/sendAudio", body)
-    inspect response
+  def handle_cast({:send_meditation, to_id, meditation}, _stateless) do
+    send_meditation to_id, meditation
+    {:stop, :normal, @stateless}
+  end
+
+  def handle_cast({:send_onboarding, to_id, text, meditation}, _stateless) do
+    send_message to_id, text
+    send_meditation to_id, meditation
     {:stop, :normal, @stateless}
   end
 
   ## private
 
+  defp send_message(to_id, message) do
+    body = Poison.encode!(%{"chat_id": to_id, "text": message})
+    request("/sendMessage", body)
+  end
+
+  defp send_meditation(to_id, %Meditation{title: title, audio_url: audio_url}) do
+    body = Poison.encode!(%{"chat_id": to_id,
+			    "audio": audio_url,
+			    "title": title})
+    request("/sendAudio", body)
+  end
+  
   defp prepare_url(suffix), do: "https://api.telegram.org/bot" <> Telegram.Token.value <> suffix
 
   defp request(suffix, body) do
