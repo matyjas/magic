@@ -70,7 +70,7 @@ defmodule Telegram.Gateway do
       response.status_code != 200 ->
 	inspect response
       true ->
-	:ok
+	inspect response.body
     end
     response
   end
