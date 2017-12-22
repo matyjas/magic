@@ -48,13 +48,13 @@ defmodule Telegram.UpdateTest do
   end
 
   test "initial message" do
-    {sender_id, date} = Update.extract_sender_date(@start_mess)
+    {:ok, sender_id, date} = Update.extract_sender_date(@start_mess)
     assert @start_mess_id == sender_id
     assert @start_mess_date == date
   end
 
   test "sample message" do
-    {sender_id, date} = Update.extract_sender_date(@samp_mess)
+    {:ok, sender_id, date} = Update.extract_sender_date(@samp_mess)
     assert @samp_mess_id == sender_id
     assert @samp_mess_date == date
   end

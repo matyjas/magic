@@ -25,12 +25,12 @@ defmodule Dialog.Convo do
 
   # empty state means this is the beginning of our conversation
   def handle_cast({:add_utterance, utterance}, []) do
-    respond utterance
+    onboarding utterance
     {:noreply, [ utterance ] }
   end
   
   def handle_cast({:add_utterance, utterance}, state) do
-    respond utterance
+    respond utterance, state
     {:noreply, [ utterance | state ] }
   end
 
@@ -40,19 +40,21 @@ defmodule Dialog.Convo do
 
   # private
 
-  defp respond(utterance) do
+  defp onboarding(utterance) do
     case Update.extract_sender_date(utterance) do
-      {:unhandled_update_type, update} ->
-	IO.inspect "WARNING :: unhandled update from messaging platform>>"
-	IO.inspect update    	
-      {sender_id, date} ->
-	send_message sender_id, date 
-	send_meditation sender_id, Meditations.Meditation.sample
+      {:ok, sender_id, date} ->
+	text = Onboard.Greet.get(date)
+	send_onboarding sender_id, text, Meditations.Meditation.sample
+      _ ->
+	:error
     end
   end
   
-  defp send_message(sender_id, date) do
-    text = Onboard.Greet.get(date)
+  defp respond(utterance, history) do
+    # send this feedback link - https://maciejmatyjas.typeform.com/to/HCTng6
+  end
+  
+  defp send_message(sender_id, text) do
     {:ok, pid} = Gateway.start_link([])
     Gateway.send_message(pid, sender_id, text)    
   end
@@ -60,5 +62,10 @@ defmodule Dialog.Convo do
   defp send_meditation(sender_id, meditation) do
     {:ok, pid} = Gateway.start_link([])
     Gateway.send_meditation(pid, sender_id, meditation)
+  end
+
+  defp send_onboarding(sender_id, text, meditation) do
+    {:ok, pid} = Gateway.start_link([])
+    Gateway.send_onboarding(pid, sender_id, text, meditation)
   end
 end

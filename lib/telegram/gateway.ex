@@ -1,7 +1,8 @@
 defmodule Telegram.Gateway do
   use GenServer
 
-  alias Meditations.{Meditation}
+  alias Meditations.Meditation
+  alias HTTPotion.Response
   
   @stateless {}
   
@@ -40,7 +41,9 @@ defmodule Telegram.Gateway do
   end
 
   def handle_cast({:send_onboarding, to_id, text, meditation}, _stateless) do
-    send_message to_id, text
+    %Response{body: body} = send_message to_id, text
+    # want to pull message_id out and set it as reply_to_message_id
+    inspect body
     send_meditation to_id, meditation
     {:stop, :normal, @stateless}
   end
@@ -65,7 +68,7 @@ defmodule Telegram.Gateway do
     response = HTTPotion.post prepare_url(suffix),
       [body: body, headers: ["Content-Type": "application/json"], follow_redirects: true]
     cond do
-      !HTTPotion.Response.success?(response) ->
+      !Response.success?(response) ->
 	inspect response
       response.status_code != 200 ->
 	inspect response
