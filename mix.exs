@@ -38,7 +38,9 @@ defmodule Magic.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.13"},
       {:cowboy, "~> 1.0"},
-      {:httpotion, "~> 3.0.2"}
+      {:httpotion, "~> 3.0.2"},
+      {:credo, "~> 0.3", only: [:dev, :test]},
+      {:dialyxir, "~> 0.5.1", only: :dev}
     ]
   end
 end

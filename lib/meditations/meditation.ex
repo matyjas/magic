@@ -1,6 +1,12 @@
 defmodule Meditations.Meditation do
+
+  @moduledoc """
+  Entity representing a meditation
+  """
+
   alias __MODULE__
 
+  @enforce_keys [:title, :date, :duration, :description, :audio_url]
   defstruct title: "", date: "", duration: "", description: "", audio_url: ""
 
   def sample() do

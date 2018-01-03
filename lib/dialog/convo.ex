@@ -1,6 +1,10 @@
 defmodule Dialog.Convo do
   use GenServer
 
+  @moduledoc """
+  GenServer that maintains the state of a conversation 
+  """
+  
   alias Telegram.{Update, Gateway}
   
   # public
@@ -26,12 +30,12 @@ defmodule Dialog.Convo do
   # empty state means this is the beginning of our conversation
   def handle_cast({:add_utterance, utterance}, []) do
     onboarding utterance
-    {:noreply, [ utterance ] }
+    {:noreply, [ utterance ]}
   end
   
   def handle_cast({:add_utterance, utterance}, state) do
     respond utterance, state
-    {:noreply, [ utterance | state ] }
+    {:noreply, [ utterance | state ]}
   end
 
   def handle_call(:get_utterances, _from, state) do
@@ -43,10 +47,10 @@ defmodule Dialog.Convo do
   defp onboarding(utterance) do
     case Update.extract_sender_date(utterance) do
       {:ok, sender_id, date} ->
-	text = Onboard.Greet.get(date)
-	send_onboarding sender_id, text, Meditations.Meditation.sample
+        text = Onboard.Greet.get(date)
+        send_onboarding sender_id, text, Meditations.Meditation.sample
       _ ->
-	:error
+        :error
     end
   end
   

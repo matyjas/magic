@@ -1,6 +1,10 @@
 defmodule Telegram.Gateway do
   use GenServer
 
+  @moduledoc """
+  GenServer acts as `Gateway` to Telegram messaging
+  """
+  
   alias Meditations.Meditation
   alias HTTPotion.Response
   
@@ -57,8 +61,8 @@ defmodule Telegram.Gateway do
 
   defp send_meditation(to_id, %Meditation{title: title, audio_url: audio_url}) do
     body = Poison.encode!(%{"chat_id": to_id,
-			    "audio": audio_url,
-			    "title": title})
+                            "audio": audio_url,
+                            "title": title})
     request("/sendAudio", body)
   end
   
@@ -69,11 +73,11 @@ defmodule Telegram.Gateway do
       [body: body, headers: ["Content-Type": "application/json"], follow_redirects: true]
     cond do
       !Response.success?(response) ->
-	inspect response
+        inspect response
       response.status_code != 200 ->
-	inspect response
+        inspect response
       true ->
-	inspect response.body
+        inspect response.body
     end
     response
   end

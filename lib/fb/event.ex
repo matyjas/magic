@@ -1,11 +1,15 @@
 defmodule FB.Event do
 
+  @moduledoc """
+  Entity for working with events from Facebook Messenger
+  """
+  
   def recipient(%{"recipient" => %{"id" => recipient}}) do
     recipient
   end
 
   def extract_sender_timestamp(%{"sender" => %{"id" => sender},
-	      "timestamp" => timestamp}) do
+              "timestamp" => timestamp}) do
     {sender, timestamp}
   end
   

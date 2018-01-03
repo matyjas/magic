@@ -1,6 +1,10 @@
 defmodule Magic.Application do
   use Application
 
+  @moduledoc """
+  OTP app for Phoenix
+  """
+  
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
