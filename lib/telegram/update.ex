@@ -10,8 +10,8 @@ defmodule Telegram.Update do
   end
 
   def extract_sender_date(update) do
-    IO.put "WARNING :: unhandled update from messaging platform>>"
-    IO.put update       
+    IO.puts "WARNING :: unhandled update from messaging platform>>"
+    IO.puts update       
     {:unhandled_update_type, update}
   end
 end
