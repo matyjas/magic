@@ -7,8 +7,8 @@ defmodule Feedback.Prompt do
   @feedback_url "https://maciejmatyjas.typeform.com/to/HCTng6"
   
   @requests {"Please let us know how we are doing",
-	     "Feedback please",
-	     "Something appears to have gone wrong, your comments would be appreciated"}
+             "Feedback please",
+             "Something appears to have gone wrong, your comments would be appreciated"}
 
   def url(), do: @feedback_url 
 

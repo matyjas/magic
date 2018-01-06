@@ -16,8 +16,8 @@ defmodule MagicWeb.FBController do
   end
   
   def subscribe(conn, %{"hub.mode" => "subscribe",
-			"hub.verify_token" => token,
-		       "hub.challenge" => challenge}) do
+                        "hub.verify_token" => token,
+                       "hub.challenge" => challenge}) do
     
     check(conn, Token.verify_handshake?(token, challenge))
   end
