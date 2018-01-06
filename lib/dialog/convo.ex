@@ -30,12 +30,12 @@ defmodule Dialog.Convo do
   # empty state means this is the beginning of our conversation
   def handle_cast({:add_utterance, utterance}, []) do
     onboarding utterance
-    {:noreply, [ utterance ]}
+    {:noreply, [utterance]}
   end
   
   def handle_cast({:add_utterance, utterance}, state) do
     respond utterance, state
-    {:noreply, [ utterance | state ]}
+    {:noreply, [utterance | state]}
   end
 
   def handle_call(:get_utterances, _from, state) do
