@@ -10,7 +10,7 @@ defmodule Dialog.Router do
   # public
 
   def start_link(opts) do
-    GenServer.start_link(__MODULE__, :ok, opts)
+    GenServer.start_link(__MODULE__, [message: opts[:message]], opts)
   end
 
   def route_request(pid, req) do
@@ -18,8 +18,8 @@ defmodule Dialog.Router do
   end
   # otp
 
-  def init(:ok) do
-    {:ok, %{}}
+  def init(message: mess) do
+    {:ok, %{message: mess}}
   end
 
   def handle_cast({:req, req}, state) do
