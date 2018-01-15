@@ -1,7 +1,7 @@
 defmodule MagicWeb.TelegramController do
   use MagicWeb, :controller
 
-  alias Dialog.{Router,Convo}
+  alias Dialog.Router
   
   def updates(conn, params) do
 

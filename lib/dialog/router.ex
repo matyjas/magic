@@ -40,7 +40,7 @@ defmodule Dialog.Router do
 		    {:ok, pid} = Convo.start_link []
 		    Convo.add_utterance pid, req
 
-		    new_lookup = %{state.lookup | sender_id => pid}
+		    new_lookup = Map.put(state.lookup, sender_id, pid)
 		    %{state | :lookup => new_lookup}
 		end
 	      {:error, _msg} ->
