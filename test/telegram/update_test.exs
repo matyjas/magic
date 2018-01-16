@@ -61,8 +61,9 @@ defmodule Telegram.UpdateTest do
       assert @start_mess_text == text
     end
   end
-  
+
   test "sad path" do
+    # warning logged from here
     boo = "boo"
     {unhandled_update_type, _error_message} = Update.extract_sender_date(boo)
     assert :error == unhandled_update_type
