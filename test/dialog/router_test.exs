@@ -24,4 +24,13 @@ defmodule Dialog.RouterTest do
     {:noreply, new_state} = Router.handle_cast(@sample_req, state)
     assert Map.has_key?(new_state.lookup, @sample_req_id)
   end
+
+  test "router sends messages to the same conversation" do
+    state = %Router{message: Telegram.Update, lookup: %{}}
+    {:noreply, state_1} = Router.handle_cast(@sample_req, state)
+    {:noreply, state_2} = Router.handle_cast(@sample_req, state_1)
+    IO.inspect state_2
+    assert state_1 == state_2
+    assert 1 == map_size(state_2.lookup)
+  end
 end
