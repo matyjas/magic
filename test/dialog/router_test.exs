@@ -29,7 +29,6 @@ defmodule Dialog.RouterTest do
     state = %Router{message: Telegram.Update, lookup: %{}}
     {:noreply, state_1} = Router.handle_cast(@sample_req, state)
     {:noreply, state_2} = Router.handle_cast(@sample_req, state_1)
-    IO.inspect state_2
     assert state_1 == state_2
     assert 1 == map_size(state_2.lookup)
   end
