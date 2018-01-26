@@ -16,6 +16,8 @@ defmodule Magic.Application do
       supervisor(MagicWeb.Endpoint, []),
       # Start your own worker by calling: Magic.Worker.start_link(arg1, arg2, arg3)
       # worker(Magic.Worker, [arg1, arg2, arg3]),
+      supervisor(Dialog.DialogSupervisor,
+        [[router_name: :telegram_router, message: Telegram.Update]])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

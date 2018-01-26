@@ -5,12 +5,7 @@ defmodule Dialog.Application do
   Owns conversation hierarchy
   """
   
-  def start(_type, _args) do
-    import Supervisor.Spec
-
-    children = []
-
-    opts = [strategy: :one_for_all]
-    Supervisor.start_link(children, opts)
+  def start(_type, opts) do
+    Dialog.DialogSupervisor.start_link(opts)
   end
 end
