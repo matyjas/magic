@@ -30,6 +30,8 @@ defmodule Dialog.Router do
   end
 
   def handle_cast({:req, req}, state) do
+    IO.inspect state
+    IO.inspect req
     state = case state.message.extract_sender_id(req) do
               {:ok, sender_id} ->
                 case Map.fetch(state.lookup, sender_id) do
