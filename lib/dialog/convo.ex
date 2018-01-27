@@ -55,6 +55,7 @@ defmodule Dialog.Convo do
   end
   
   defp respond(utterance, history) do
+    IO.puts "no response implemented yet"
     # send this feedback link - https://maciejmatyjas.typeform.com/to/HCTng6
   end
   

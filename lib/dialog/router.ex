@@ -37,6 +37,7 @@ defmodule Dialog.Router do
                     Convo.add_utterance(pid, req)
                     state
                   :error ->
+                    # Convo started here
                     {:ok, pid} = Convo.start_link []
                     Convo.add_utterance pid, req
 
